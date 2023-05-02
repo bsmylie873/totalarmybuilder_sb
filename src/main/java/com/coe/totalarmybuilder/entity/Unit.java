@@ -1,10 +1,14 @@
 package com.coe.totalarmybuilder.entity;
 
+import com.coe.totalarmybuilder.dto.Composition.CompositionDto;
+import com.coe.totalarmybuilder.dto.Faction.FactionDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Table(name = "units")
 @AllArgsConstructor
@@ -16,21 +20,22 @@ public class Unit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    @Column(name = "id", updatable = false, nullable = false)
+    private int id;
 
     @Column(name = "name", nullable = false)
-    private String Name;
+    private String name;
 
     @Column(name = "cost", nullable = false)
-    private int Cost;
+    private int cost;
 
     @Column(name = "avatarId", nullable = false)
-    private int AvatarId;
+    private int avatarId;
 
-   /* @Column(name = "compositions", nullable = false)
-    private List<CompositionDto> Compositions;
+    @OneToMany(mappedBy = "unit")
+    private List<CompositionUnit> compositionUnits;
 
-    @Column(name = "factions", nullable = false)
-    private List<FactionDto> Factions;*/
+    @OneToMany(mappedBy = "unit")
+    private List<UnitFaction> unitFactions;
 
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Set;
 
 @Table(name = "compositions")
 @AllArgsConstructor
@@ -18,36 +19,37 @@ public class Composition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    @Column(name = "id", updatable = false, nullable = false)
+    private int id;
 
     @Column(name = "name", nullable = false)
-    private String Name;
+    private String name;
 
     @Column(name = "battleType", nullable = false)
-    private String BattleType;
+    private String battleType;
 
     @Column(name = "factionId", nullable = false)
-    private int FactionId;
+    private int factionId;
 
     @Column(name = "avatarId", nullable = false)
-    private int AvatarId;
+    private int avatarId;
 
     @Column(name = "budget", nullable = false)
-    private int Budget;
+    private int budget;
 
     @Column(name = "dateCreated", nullable = false)
-    private Date DateCreated;
+    private Date dateCreated;
 
     @Column(name = "wins", nullable = false)
-    private int Wins;
+    private int wins;
 
     @Column(name = "losses", nullable = false)
-    private int Losses;
+    private int losses;
 
-//    @Column(name = "accounts", nullable = false)
-//    private List<Account> Accounts;
-//
-//    @Column(name = "units", nullable = true)
-//    private List<Unit> Units;
+    @OneToMany(mappedBy = "composition")
+    private Set<AccountComposition> accountCompositions;
+
+    @OneToMany(mappedBy = "composition")
+    private Set<CompositionUnit> compositionUnits;
 
 }

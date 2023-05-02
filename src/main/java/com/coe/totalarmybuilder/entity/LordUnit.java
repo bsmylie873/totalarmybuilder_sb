@@ -6,25 +6,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
-@Table(name = "factions")
+@Table(name = "lords")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Faction {
+public class LordUnit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private int Id;
 
-    @Column(name = "name", nullable = false)
-    private String Name;
-
-    @OneToMany(mappedBy = "faction")
-    private Set<UnitFaction> unitFactions;
+    @Column(name = "unit_id", nullable = false)
+    private int UnitId;
 
 }

@@ -8,23 +8,27 @@ import lombok.Setter;
 
 import java.util.Set;
 
-@Table(name = "factions")
+@Table(name = "compositions_units")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Faction {
+public class CompositionUnit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private int Id;
 
-    @Column(name = "name", nullable = false)
-    private String Name;
+    @Column(name = "composition_id", insertable = false, updatable = false, nullable = false)
+    private int CompositionId;
 
-    @OneToMany(mappedBy = "faction")
-    private Set<UnitFaction> unitFactions;
+    @Column(name = "unit_id", insertable = false, updatable = false, nullable = false)
+    private int UnitId;
 
+    @ManyToOne
+    private Composition composition;
+    @ManyToOne
+    private Unit unit;
 }
