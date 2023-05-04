@@ -14,7 +14,7 @@ public interface UnitRepository extends JpaRepository<Unit, Integer> {
 
     List<Unit> findAll();
 
-    Optional<Unit> findById(int unitId);
+    Optional<Unit> findById(Integer id);
 
     @Query( "SELECT F FROM Faction F JOIN UnitFaction UF WHERE UF.unitId = :id AND UF.factionId = F.id")
     List<Faction> findFactionsByUnitId(Integer id);

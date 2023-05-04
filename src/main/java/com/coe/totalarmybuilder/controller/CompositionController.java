@@ -42,7 +42,7 @@ public class CompositionController {
 
     @GetMapping(value = "/{id}/units/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UnitView>> getCompositionUnits(final int id) {
-        List<UnitDto> compositionUnits = compositionService.findUnitsByComposition(id);
+        List<UnitDto> compositionUnits = compositionService.findUnitsByCompositionId(id);
         return ResponseEntity.ok(mapper.map(compositionUnits, UnitView.class));
     }
 

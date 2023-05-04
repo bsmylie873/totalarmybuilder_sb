@@ -15,7 +15,7 @@ public interface FactionRepository extends CrudRepository<Faction, Integer> {
 
     List<Faction> findAll();
 
-    Optional<Faction> findById(int factionId);
+    Optional<Faction> findById(Integer id);
 
     @Query( "SELECT U FROM Unit U JOIN UnitFaction UF WHERE UF.factionId = :id AND UF.unitId= U.id")
     List<Unit> findUnitsByFactionId(Integer id);

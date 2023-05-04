@@ -28,8 +28,8 @@ public class CompositionService {
     public CompositionDto findById(Integer id) {
         return mapper.map(compositionRepository.findById(id).get(),  CompositionDto.class);
     }
-    public List<UnitDto> findUnitsByComposition(Integer id)  {
-        return mapper.map(compositionRepository.findUnitsByComposition(id),  UnitDto.class);
+    public List<UnitDto> findUnitsByCompositionId(final int id)  {
+        return mapper.map(compositionRepository.findUnitsByCompositionId(id),  UnitDto.class);
     }
 
     public CompositionDto createComposition(final CreateCompositionDto createCompositionDto) {

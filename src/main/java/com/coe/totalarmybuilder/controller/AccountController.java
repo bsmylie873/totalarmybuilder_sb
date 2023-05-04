@@ -29,7 +29,6 @@ public class AccountController {
 
     private final AccountService accountService;
     private final Mapper mapper;
-    private final MapperConfiguration mapperConfiguration;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AccountView>> getAccounts() {
@@ -38,13 +37,13 @@ public class AccountController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AccountDetailView> getAccountById(final Integer id) {
+    public ResponseEntity<AccountDetailView> getAccountById(@PathVariable final Integer id) {
         AccountDto account = accountService.findById(id);
         return ResponseEntity.ok(mapper.map(account, AccountDetailView.class));
     }
 
     @GetMapping(value = "/{id}/compositions/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CompositionView>> getAccountCompositions(final Integer id) {
+    public ResponseEntity<List<CompositionView>> getAccountCompositions(@PathVariable final Integer id) {
         List<CompositionDto> accountCompositions = accountService.findCompositionsByAccountId(id);
         return ResponseEntity.ok(mapper.map(accountCompositions, CompositionView.class));
     }

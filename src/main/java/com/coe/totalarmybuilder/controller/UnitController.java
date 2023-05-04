@@ -38,7 +38,7 @@ public class UnitController {
 
     @GetMapping(value = "/{id}/factions/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FactionView>> getUnitFactions(final int id) {
-        List<FactionDto> unitFactions = unitService.findFactions(id);
+        List<FactionDto> unitFactions = unitService.findFactionsByUnitId(id);
         return ResponseEntity.ok(mapper.map(unitFactions, FactionView.class));
     }
 

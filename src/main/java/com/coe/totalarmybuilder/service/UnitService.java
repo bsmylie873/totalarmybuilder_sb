@@ -19,11 +19,14 @@ public class UnitService {
         return mapper.map(unitRepository.findAll(), UnitDto.class);
     }
     public UnitDto findById(Integer id) {
-        return mapper.map(unitRepository.findById(id),  UnitDto.class);
+        return mapper.map(unitRepository.findById(id).get(),  UnitDto.class);
     }
-    public List<FactionDto> findFactions(Integer id) {
+    public List<FactionDto> findFactionsByUnitId(Integer id) {
         return mapper.map(unitRepository.findFactionsByUnitId(id),  FactionDto.class);
     }
+
+
+
    /* public List<UnitDto> findLords() {
         return mapper.map(unitRepository.findLords(), UnitDto.class);
     };

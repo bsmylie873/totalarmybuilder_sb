@@ -19,7 +19,7 @@ public class FactionService {
         return mapper.map(factionRepository.findAll(), FactionDto.class);
     }
     public FactionDto findById(Integer id) {
-        return mapper.map(factionRepository.findById(id),  FactionDto.class);
+        return mapper.map(factionRepository.findById(id).get(),  FactionDto.class);
     }
     public List<UnitDto> findUnitsByFactionId(Integer id) {
         return mapper.map(factionRepository.findUnitsByFactionId(id),  UnitDto.class);

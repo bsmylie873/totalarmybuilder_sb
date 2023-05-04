@@ -2,7 +2,10 @@ package com.coe.totalarmybuilder.service;
 
 import com.coe.totalarmybuilder.dto.Account.AccountDto;
 import com.coe.totalarmybuilder.dto.Account.CreateAccountDto;
+import com.coe.totalarmybuilder.dto.Account.UpdateAccountDto;
+import com.coe.totalarmybuilder.dto.Composition.CompositionDto;
 import com.coe.totalarmybuilder.entity.Account;
+import com.coe.totalarmybuilder.entity.Composition;
 import com.coe.totalarmybuilder.exception.custom.ResourceNotFoundException;
 import com.coe.totalarmybuilder.mapper.Mapper;
 import com.coe.totalarmybuilder.repository.AccountRepository;
@@ -41,7 +44,16 @@ public class AccountServiceTest {
     private AccountDto accountDtoFixture;
 
     @Fixture
+    private List<Composition> compositionListFixture;
+
+    @Fixture
+    private List<CompositionDto> compositionDtoListFixture;
+
+    @Fixture
     private CreateAccountDto createAccountDtoFixture;
+
+    @Fixture
+    private UpdateAccountDto updateAccountDtoFixture;
 
     @Mock
     private EntityManager entityManagerMock;
@@ -94,6 +106,22 @@ public class AccountServiceTest {
         verify(accountRepositoryMock, times(1)).findById(anyInt());
     }
 
+    @Test
+    public void findCompositionsByAccountId_Returns_List_Of_Compositions() {
+
+        // Arrange
+        when(accountRepositoryMock.findCompositionsByAccountId(anyInt())).thenReturn(compositionListFixture);
+        when(mapperMock.map(compositionListFixture, CompositionDto.class)).thenReturn(compositionDtoListFixture);
+
+        // Act
+        List<CompositionDto> compositionDtoList = classUnderTest.findCompositionsByAccountId(anyInt());
+
+        // Assert
+        assertThat(compositionDtoList).isNotNull();
+        assertThat(compositionDtoList).usingRecursiveComparison().isEqualTo(compositionDtoListFixture);
+        verify(accountRepositoryMock, times(1)).findCompositionsByAccountId(anyInt());
+    }
+
 
     @Test
     public void createAccount_Returns_AccountDto() {
@@ -109,6 +137,23 @@ public class AccountServiceTest {
         // Assert
         verify(accountRepositoryMock).save(accountFixture);
         assertThat(accountDto).usingRecursiveComparison().isEqualTo(accountDtoFixture);
+    }
+
+    @Test
+    public void update_Account_Returns_AccountDto() {
+
+        // Arrange
+        when(mapperMock.map(accountFixture, AccountDto.class)).thenReturn(accountDtoFixture);
+        when(accountRepositoryMock.existsById(anyInt())).thenReturn(true);
+        when(mapperMock.map(updateAccountDtoFixture, Account.class)).thenReturn(accountFixture);
+        when(accountRepositoryMock.save(accountFixture)).thenReturn(accountFixture);
+
+        // Act
+        Optional<AccountDto> accountDto = classUnderTest.updateAccount(anyInt(), updateAccountDtoFixture);
+
+        // Assert
+        verify(accountRepositoryMock).save(accountFixture);
+        assertThat(accountDto.get()).usingRecursiveComparison().isEqualTo(accountDtoFixture);
     }
 
     @Test
