@@ -57,7 +57,7 @@ public class AccountController {
     }
 
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> updateAccount(final int id,
+    public ResponseEntity<HttpStatus> updateAccount(@PathVariable final int id,
                                                     @RequestBody final UpdateAccountView updateAccountView) {
         final UpdateAccountDto updateAccountDto = mapper.map(updateAccountView, UpdateAccountDto.class);
         final Optional<AccountDto> accountDto = accountService.updateAccount(id, updateAccountDto);

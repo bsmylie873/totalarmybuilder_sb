@@ -36,8 +36,7 @@ public class AccountService {
 
     public AccountDto createAccount(final CreateAccountDto createAccountDto) {
         final Account account = mapper.map(createAccountDto, Account.class);
-        final Account newAccount;
-        newAccount = accountRepository.save(account);
+        final Account newAccount = accountRepository.save(account);
         return mapper.map(newAccount, AccountDto.class);
     }
 

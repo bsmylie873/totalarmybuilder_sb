@@ -1,15 +1,22 @@
 package com.coe.totalarmybuilder.controllers;
 
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.coe.totalarmybuilder.controller.AccountController;
 import com.coe.totalarmybuilder.dto.Account.AccountDto;
 import com.coe.totalarmybuilder.dto.Account.CreateAccountDto;
 import com.coe.totalarmybuilder.dto.Account.UpdateAccountDto;
+import com.coe.totalarmybuilder.dto.Composition.CompositionDto;
 import com.coe.totalarmybuilder.exception.ExceptionHandler;
 import com.coe.totalarmybuilder.mapper.Mapper;
 import com.coe.totalarmybuilder.model.view.account.AccountDetailView;
 import com.coe.totalarmybuilder.model.view.account.AccountView;
 import com.coe.totalarmybuilder.model.view.account.CreateAccountView;
 import com.coe.totalarmybuilder.model.view.account.UpdateAccountView;
+import com.coe.totalarmybuilder.model.view.composition.CompositionView;
 import com.coe.totalarmybuilder.service.AccountService;
 import com.coe.totalarmybuilder.util.ResourceUtility;
 import com.flextrade.jfixture.FixtureAnnotations;
@@ -29,25 +36,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-import static org.modelmapper.internal.bytebuddy.matcher.ElementMatchers.any;
-import static org.springframework.http.RequestEntity.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 public class AccountControllerTests {
 
     private MockMvc mockMvc;
+    private static final String CREATE_ACCOUNT_VALID_JSON = ResourceUtility.generateStringFromResource("requestJson/CreateAccount_Valid.json");
 
-    //private static final String CREATE_ACCOUNT_VALID_JSON = ResourceUtility.generateStringFromResource("requestJson/CreateAccount_Valid.json");
-
-    //private static final String UPDATE_ACCOUNT_VALID_JSON = ResourceUtility.generateStringFromResource("requestJson/UpdateAccount_Valid.json");
+    private static final String UPDATE_ACCOUNT_VALID_JSON = ResourceUtility.generateStringFromResource("requestJson/UpdateAccount_Valid.json");
 
     @Mock
     private Mapper mapperMock;
@@ -69,6 +68,12 @@ public class AccountControllerTests {
 
     @Fixture
     private List<AccountDto> accountDtoListFixture;
+
+    @Fixture
+    private List<CompositionDto> compositionDtoListFixture;
+
+    @Fixture
+    private List<CompositionView> compositionViewListFixture;
 
     @Fixture
     private CreateAccountDto createAccountDtoFixture;
@@ -111,13 +116,29 @@ public class AccountControllerTests {
         mockMvc.perform(get("/api/accounts/1")).andExpect(status().isOk());
     }
 
- /*   @Test
+    @Test
+    public void getAccountCompositionsById_Returns_Compositions_And_Ok() throws Exception {
+        when(mapperMock.map(compositionDtoListFixture, CompositionView.class)).thenReturn(compositionViewListFixture);
+        when(accountServiceMock.findCompositionsByAccountId(anyInt())).thenReturn(compositionDtoListFixture);
+        mockMvc.perform(get("/api/accounts/1/compositions/")).andExpect(status().isOk());
+    }
+
+    @Test
     public void createAccount_Returns_Created() throws Exception {
         when(mapperMock.map(any(CreateAccountView.class), eq(CreateAccountDto.class))).thenReturn(createAccountDtoFixture);
-        when(accountServiceMock.createAccount(createAccountDtoFixture)).thenReturn(createAccountDtoFixture);
-        when(mapperMock.map(createAccountDtoFixture, AccountView.class)).thenReturn(accountViewFixture);
+        when(accountServiceMock.createAccount(createAccountDtoFixture)).thenReturn(accountDtoFixture);
+        when(mapperMock.map(accountDtoFixture, AccountView.class)).thenReturn(accountViewFixture);
         mockMvc.perform(post("/api/accounts").contentType(MediaType.APPLICATION_JSON)
-                .content(CREATE_ORDER_VALID_JSON)).andExpect(status().isCreated());
-    }*/
+                .content(CREATE_ACCOUNT_VALID_JSON)).andExpect(status().isCreated());
+    }
+
+    @Test
+    public void updateAccount_Returns_Created() throws Exception {
+        when(mapperMock.map(any(UpdateAccountView.class), eq(UpdateAccountDto.class))).thenReturn(updateAccountDtoFixture);
+        when(accountServiceMock.updateAccount(anyInt(), any(UpdateAccountDto.class))).thenReturn(Optional.of(accountDtoFixture));
+        when(mapperMock.map(accountDtoFixture, AccountView.class)).thenReturn(accountViewFixture);
+        mockMvc.perform(patch("/api/accounts/1").contentType(MediaType.APPLICATION_JSON)
+                .content(UPDATE_ACCOUNT_VALID_JSON)).andExpect(status().isOk());
+    }
 
 }
