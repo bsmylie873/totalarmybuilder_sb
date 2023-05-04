@@ -1,8 +1,9 @@
 package com.coe.totalarmybuilder.repository;
 
-import com.coe.totalarmybuilder.dto.Unit.UnitDto;
-import com.coe.totalarmybuilder.entity.Composition;
+
 import com.coe.totalarmybuilder.entity.Faction;
+import com.coe.totalarmybuilder.entity.Unit;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,8 @@ public interface FactionRepository extends CrudRepository<Faction, Integer> {
     List<Faction> findAll();
 
     Optional<Faction> findById(int factionId);
-    List<UnitDto> findAllById(Integer id);
+
+    @Query( "SELECT U FROM Unit U JOIN UnitFaction UF WHERE UF.factionId = :id AND UF.unitId= U.id")
+    List<Unit> findUnitsByFactionId(Integer id);
+
 }

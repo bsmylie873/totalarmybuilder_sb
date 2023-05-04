@@ -4,6 +4,7 @@ import com.coe.totalarmybuilder.dto.Faction.FactionDto;
 import com.coe.totalarmybuilder.dto.Unit.UnitDto;
 import com.coe.totalarmybuilder.mapper.Mapper;
 import com.coe.totalarmybuilder.model.view.faction.FactionView;
+import com.coe.totalarmybuilder.model.view.unit.UnitDetailView;
 import com.coe.totalarmybuilder.model.view.unit.UnitView;
 import com.coe.totalarmybuilder.service.UnitService;
 import lombok.RequiredArgsConstructor;
@@ -24,33 +25,33 @@ public class UnitController {
     private final Mapper mapper;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UnitView>> findAll() {
+    public ResponseEntity<List<UnitView>> getUnits() {
         List<UnitDto> unitList = unitService.findAll();
         return ResponseEntity.ok(mapper.map(unitList, UnitView.class));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UnitView> getUnitById(final int id) {
+    public ResponseEntity<UnitDetailView> getUnitById(final int id) {
         UnitDto unit = unitService.findById(id);
-        return ResponseEntity.ok(mapper.map(unit, UnitView.class));
+        return ResponseEntity.ok(mapper.map(unit, UnitDetailView.class));
     }
 
     @GetMapping(value = "/{id}/factions/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FactionView>> getUnitFactions(final int id) {
-        List<FactionDto> unitFactions = unitService.findAllById(id);
+        List<FactionDto> unitFactions = unitService.findFactions(id);
         return ResponseEntity.ok(mapper.map(unitFactions, FactionView.class));
     }
 
-    @GetMapping(value = "/lords/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getUnitLords(final int userId) {
-        String units = "This is a unit of type lords test";
-        return ResponseEntity.ok(units);
+    /*@GetMapping(value = "/lords/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<UnitView>> getUnitLords() {
+        List<UnitDto> unitList = unitService.findLords();
+        return ResponseEntity.ok(mapper.map(unitList, UnitView.class));
     }
 
     @GetMapping(value = "/heroes/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getUnitHeroes(final int userId) {
-        String units = "This is a unit of type heroes test";
-        return ResponseEntity.ok(units);
-    }
+    public ResponseEntity<List<UnitView>> getUnitHeroes() {
+        List<UnitDto> unitList = unitService.findHeroes();
+        return ResponseEntity.ok(mapper.map(unitList, UnitView.class));
+    }*/
 
 }

@@ -51,5 +51,4 @@ public class Composition {
 
     @OneToMany(mappedBy = "composition")
     private Set<CompositionUnit> compositionUnits;
-
 }

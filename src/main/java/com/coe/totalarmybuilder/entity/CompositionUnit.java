@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Table(name = "compositions_units")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,13 +17,13 @@ public class CompositionUnit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private int Id;
+    private int id;
 
     @Column(name = "composition_id", insertable = false, updatable = false, nullable = false)
-    private int CompositionId;
+    private int compositionId;
 
     @Column(name = "unit_id", insertable = false, updatable = false, nullable = false)
-    private int UnitId;
+    private int unitId;
 
     @ManyToOne
     private Composition composition;

@@ -17,10 +17,12 @@ public class HeroUnit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private int Id;
+    private int id;
 
-    @Column(name = "unit_id", nullable = false)
-    private int UnitId;
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "unit_id")
+    private Unit unit;
 
 
 }

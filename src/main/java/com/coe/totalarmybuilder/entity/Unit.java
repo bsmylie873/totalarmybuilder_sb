@@ -1,7 +1,5 @@
 package com.coe.totalarmybuilder.entity;
 
-import com.coe.totalarmybuilder.dto.Composition.CompositionDto;
-import com.coe.totalarmybuilder.dto.Faction.FactionDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,9 +31,13 @@ public class Unit {
     private int avatarId;
 
     @OneToMany(mappedBy = "unit")
-    private List<CompositionUnit> compositionUnits;
-
-    @OneToMany(mappedBy = "unit")
     private List<UnitFaction> unitFactions;
 
+    @OneToOne(mappedBy = "unit", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private LordUnit lordUnit;
+
+    @OneToOne(mappedBy = "unit", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private HeroUnit heroUnit;
 }

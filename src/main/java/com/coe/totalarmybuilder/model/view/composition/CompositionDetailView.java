@@ -13,7 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreateCompositionView {
+public class CompositionDetailView {
+
+    @JsonProperty("Id")
+    private int id;
 
     @JsonProperty("Name")
     private String name;

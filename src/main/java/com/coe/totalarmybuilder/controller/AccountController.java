@@ -1,9 +1,11 @@
 package com.coe.totalarmybuilder.controller;
+import com.coe.totalarmybuilder.configuration.MapperConfiguration;
 import com.coe.totalarmybuilder.dto.Account.AccountDto;
 import com.coe.totalarmybuilder.dto.Account.CreateAccountDto;
 import com.coe.totalarmybuilder.dto.Account.UpdateAccountDto;
 import com.coe.totalarmybuilder.dto.Composition.CompositionDto;
 import com.coe.totalarmybuilder.mapper.Mapper;
+import com.coe.totalarmybuilder.model.view.account.AccountDetailView;
 import com.coe.totalarmybuilder.model.view.account.AccountView;
 import com.coe.totalarmybuilder.model.view.account.CreateAccountView;
 import com.coe.totalarmybuilder.model.view.account.UpdateAccountView;
@@ -27,6 +29,7 @@ public class AccountController {
 
     private final AccountService accountService;
     private final Mapper mapper;
+    private final MapperConfiguration mapperConfiguration;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AccountView>> getAccounts() {
@@ -35,14 +38,14 @@ public class AccountController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AccountView> getAccountById(final Integer id) {
+    public ResponseEntity<AccountDetailView> getAccountById(final Integer id) {
         AccountDto account = accountService.findById(id);
-        return ResponseEntity.ok(mapper.map(account, AccountView.class));
+        return ResponseEntity.ok(mapper.map(account, AccountDetailView.class));
     }
 
     @GetMapping(value = "/{id}/compositions/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CompositionView>> getAccountCompositions(final Integer id) {
-        List<CompositionDto> accountCompositions = accountService.findAllById(id);
+        List<CompositionDto> accountCompositions = accountService.findCompositionsByAccountId(id);
         return ResponseEntity.ok(mapper.map(accountCompositions, CompositionView.class));
     }
 
@@ -59,7 +62,7 @@ public class AccountController {
                                                     @RequestBody final UpdateAccountView updateAccountView) {
         final UpdateAccountDto updateAccountDto = mapper.map(updateAccountView, UpdateAccountDto.class);
         final Optional<AccountDto> accountDto = accountService.updateAccount(id, updateAccountDto);
-        final AccountView accountView = mapper.map(accountDto, AccountView.class);
+        final AccountView accountView = mapper.map(accountDto.get(), AccountView.class);
         return new ResponseEntity(accountView, HttpStatus.OK);
     }
 

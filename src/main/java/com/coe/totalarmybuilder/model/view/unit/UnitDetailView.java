@@ -1,14 +1,17 @@
 package com.coe.totalarmybuilder.model.view.unit;
 
+import com.coe.totalarmybuilder.model.view.faction.FactionView;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UnitView {
+public class UnitDetailView {
 
     @JsonProperty("Id")
     private int id;
@@ -21,4 +24,8 @@ public class UnitView {
 
     @JsonProperty("AvatarId")
     private int avatarId;
+
+    @JsonProperty("Factions")
+    private List<FactionView> factions;
+
 }

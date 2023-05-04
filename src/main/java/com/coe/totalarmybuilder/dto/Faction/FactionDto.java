@@ -1,5 +1,6 @@
 package com.coe.totalarmybuilder.dto.Faction;
 
+import com.coe.totalarmybuilder.dto.Unit.UnitDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 public class FactionDto {
-    public int Id;
-    public String Name;
+    public int id;
+    public String name;
 
-   // public List<UnitDto> Units;
+    public List<UnitDto> units;
 }

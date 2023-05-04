@@ -13,9 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 public class AccountDto {
-    private int Id;
-    private String Username;
-    private String Email;
-    private String Password;
-    private List<CompositionDto> Compositions;
+    private int id;
+    private String username;
+    private String email;
+    private String password;
+    private List<CompositionDto> compositions;
 }

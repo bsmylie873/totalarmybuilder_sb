@@ -1,6 +1,5 @@
 package com.coe.totalarmybuilder.service;
 
-import com.coe.totalarmybuilder.dto.Composition.CompositionDto;
 import com.coe.totalarmybuilder.dto.Faction.FactionDto;
 import com.coe.totalarmybuilder.dto.Unit.UnitDto;
 import com.coe.totalarmybuilder.mapper.Mapper;
@@ -22,8 +21,8 @@ public class FactionService {
     public FactionDto findById(Integer id) {
         return mapper.map(factionRepository.findById(id),  FactionDto.class);
     }
-    public List<UnitDto> findAllById(Integer id) {
-        return mapper.map(factionRepository.findAllById(id),  UnitDto.class);
+    public List<UnitDto> findUnitsByFactionId(Integer id) {
+        return mapper.map(factionRepository.findUnitsByFactionId(id),  UnitDto.class);
     }
 
 }

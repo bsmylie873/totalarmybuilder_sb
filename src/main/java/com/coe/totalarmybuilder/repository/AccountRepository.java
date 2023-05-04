@@ -2,6 +2,7 @@ package com.coe.totalarmybuilder.repository;
 
 import com.coe.totalarmybuilder.entity.Account;
 import com.coe.totalarmybuilder.entity.Composition;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,7 @@ public interface AccountRepository extends CrudRepository<Account, Integer>{
 
     Optional<Account> findById(Integer id);
 
-    List<Composition> findAllById(Integer id);
+    @Query( "SELECT C FROM Composition C JOIN AccountComposition AC WHERE AC.accountId = :id AND AC.compositionId= C.id")
+    List<Composition> findCompositionsByAccountId(Integer id);
+
 }

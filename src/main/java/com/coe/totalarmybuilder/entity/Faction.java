@@ -19,10 +19,10 @@ public class Faction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private int Id;
+    private int id;
 
     @Column(name = "name", nullable = false)
-    private String Name;
+    private String name;
 
     @OneToMany(mappedBy = "faction")
     private Set<UnitFaction> unitFactions;

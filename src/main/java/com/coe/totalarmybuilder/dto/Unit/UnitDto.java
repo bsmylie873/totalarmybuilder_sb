@@ -1,4 +1,6 @@
 package com.coe.totalarmybuilder.dto.Unit;
+import com.coe.totalarmybuilder.dto.Composition.CompositionDto;
+import com.coe.totalarmybuilder.dto.Faction.FactionDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,11 +14,11 @@ import java.util.List;
 @Setter
 public class UnitDto {
 
-    public int Id;
-    public String Name;
-    public int Cost;
-    public int AvatarId;
+    public int id;
+    public String name;
+    public int cost;
+    public int avatarId;
 
-    //public List<CompositionDto> Compositions;
-    //public List<FactionDto> Factions;
+    public List<CompositionDto> compositions;
+    public List<FactionDto> factions;
 }

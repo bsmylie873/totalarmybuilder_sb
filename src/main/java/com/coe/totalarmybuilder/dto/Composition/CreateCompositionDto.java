@@ -15,14 +15,14 @@ import java.util.List;
 @Getter
 @Setter
 public class CreateCompositionDto {
-    public String Name;
-    public String BattleType;
-    public int FactionId;
-    public int AvatarId;
-    public int Budget;
-    public Date DateCreated;
-    public int Wins;
-    public int Losses;
-    public List<AccountDto> Accounts;
-    public List<UnitDto> Units;
+    public String name;
+    public String battleType;
+    public int factionId;
+    public int avatarId;
+    public int budget;
+    public Date dateCreated;
+    public int wins;
+    public int losses;
+    public List<AccountDto> accounts;
+    public List<UnitDto> units;
 }

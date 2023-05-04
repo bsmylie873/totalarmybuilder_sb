@@ -13,8 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 public class UpdateAccountDto {
-    private String Username;
-    private String Email;
-    private String Password;
-    private List<CompositionDto> Compositions;
+    private String username;
+    private String email;
+    private String password;
+    private List<CompositionDto> compositions;
 }

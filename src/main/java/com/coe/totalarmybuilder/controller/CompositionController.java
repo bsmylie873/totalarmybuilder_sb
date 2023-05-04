@@ -5,10 +5,11 @@ import com.coe.totalarmybuilder.dto.Composition.CreateCompositionDto;
 import com.coe.totalarmybuilder.dto.Composition.UpdateCompositionDto;
 import com.coe.totalarmybuilder.dto.Unit.UnitDto;
 import com.coe.totalarmybuilder.mapper.Mapper;
-import com.coe.totalarmybuilder.model.view.unit.UnitView;
+import com.coe.totalarmybuilder.model.view.composition.CompositionDetailView;
 import com.coe.totalarmybuilder.model.view.composition.CompositionView;
 import com.coe.totalarmybuilder.model.view.composition.CreateCompositionView;
 import com.coe.totalarmybuilder.model.view.composition.UpdateCompositionView;
+import com.coe.totalarmybuilder.model.view.unit.UnitView;
 import com.coe.totalarmybuilder.service.CompositionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,14 +35,14 @@ public class CompositionController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CompositionView> getCompositionById(final int id) {
+    public ResponseEntity<CompositionDetailView> getCompositionById(final int id) {
         CompositionDto composition = compositionService.findById(id);
-        return ResponseEntity.ok(mapper.map(composition, CompositionView.class));
+        return ResponseEntity.ok(mapper.map(composition, CompositionDetailView.class));
     }
 
     @GetMapping(value = "/{id}/units/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UnitView>> getCompositionUnits(final int id) {
-        List<UnitDto> compositionUnits = compositionService.findAllById(id);
+        List<UnitDto> compositionUnits = compositionService.findUnitsByComposition(id);
         return ResponseEntity.ok(mapper.map(compositionUnits, UnitView.class));
     }
 
@@ -61,6 +62,19 @@ public class CompositionController {
         final CompositionView compositionView = mapper.map(compositionDto, CompositionView.class);
         return new ResponseEntity(compositionView, HttpStatus.OK);
     }
+
+   /* {
+        "Name": "string",
+            "BattleType": "Land Battles",
+            "FactionId": 11,
+            "AvatarId": 0,
+            "Budget": 0,
+            "Wins": 0,
+            "Losses": 0,
+            "Units": [
+
+  ]
+    }*/
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpStatus> deleteComposition(final Integer id) {

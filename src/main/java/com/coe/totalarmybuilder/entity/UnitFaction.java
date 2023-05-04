@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Table(name = "units_factions")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,16 +17,18 @@ public class UnitFaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private int Id;
+    private int id;
 
     @Column(name = "unit_id", insertable = false, updatable = false, nullable = false)
-    private int UnitId;
+    private int unitId;
 
     @Column(name = "faction_id", insertable = false, updatable = false, nullable = false)
-    private int FactionId;
+    private int factionId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "unit_id", nullable = false)
     private Unit unit;
+
     @ManyToOne
     private Faction faction;
 }

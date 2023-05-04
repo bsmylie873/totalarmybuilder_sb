@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -15,13 +14,13 @@ import java.util.List;
 @Getter
 @Setter
 public class UpdateCompositionDto {
-    public String Name;
-    public String BattleType;
-    public int FactionId;
-    public int AvatarId;
-    public int Budget;
-    public int Wins;
-    public int Losses;
-    public List<AccountDto> Accounts;
-    public List<UnitDto> Units;
+    public String name;
+    public String battleType;
+    public int factionId;
+    public int avatarId;
+    public int budget;
+    public int wins;
+    public int losses;
+    public List<AccountDto> accounts;
+    public List<UnitDto> units;
 }

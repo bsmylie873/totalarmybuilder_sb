@@ -9,6 +9,7 @@ import com.coe.totalarmybuilder.exception.custom.ResourceNotFoundException;
 import com.coe.totalarmybuilder.mapper.Mapper;
 import com.coe.totalarmybuilder.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,15 +21,19 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final Mapper mapper;
+
     public List<AccountDto> findAll() {
-        return mapper.map(accountRepository.findAll(),  AccountDto.class);
+        return mapper.map(accountRepository.findAll(), AccountDto.class);
     }
-    public AccountDto findById(Integer id) {
-        return mapper.map(accountRepository.findById(id),  AccountDto.class);
+
+    public AccountDto findById(final int id) {
+        return mapper.map(accountRepository.findById(id).get(), AccountDto.class);
     }
-    public List<CompositionDto> findAllById(Integer id)  {
-        return mapper.map(accountRepository.findAllById(id),  CompositionDto.class);
+
+    public List<CompositionDto> findCompositionsByAccountId(final int id) {
+        return mapper.map(accountRepository.findCompositionsByAccountId(id), CompositionDto.class);
     }
+
     public AccountDto createAccount(final CreateAccountDto createAccountDto) {
         final Account account = mapper.map(createAccountDto, Account.class);
         final Account newAccount;
@@ -37,25 +42,20 @@ public class AccountService {
     }
 
     public Optional<AccountDto> updateAccount(final int id, final UpdateAccountDto updateAccountDto) {
-        final Optional<Account> account = accountRepository.findById(id);
-        if (account.isEmpty()) return Optional.empty();
-        updateAccountEntity(updateAccountDto, account.get());
-        return Optional.of(mapper.map(account.get(), AccountDto.class));
-    }
-
-    private void updateAccountEntity(final UpdateAccountDto updateAccountDto, final Account account) {
-        account.setUsername(updateAccountDto.getUsername());
-        account.setEmail(updateAccountDto.getEmail());
-        account.setPassword(updateAccountDto.getPassword());
+        if (!(accountRepository.existsById(id))) {
+            return Optional.empty();
+        }
+        Account account = mapper.map(updateAccountDto, Account.class);
+        account.setId(id);
         accountRepository.save(account);
+        return Optional.of(mapper.map(account, AccountDto.class));
     }
 
     public void deleteAccountById(Integer id) {
-        if(!accountRepository.existsById(id)){
-            throw new ResourceNotFoundException("Unable to find account id");
+        try {
+            accountRepository.deleteById(id);
+        } catch (final EmptyResultDataAccessException ex) {
+            throw new ResourceNotFoundException("Unable to find account");
         }
-        accountRepository.deleteById(id);
     }
-
-
 }
