@@ -1,0 +1,11 @@
+{
+  "name": "name",
+  "battleType": "Domination",
+  "factionId": "11",
+  "avatarId": 0,
+  "budget": 0,
+  "wins": 0,
+  "losses": 0,
+  "accounts": null,
+  "units": []
+}

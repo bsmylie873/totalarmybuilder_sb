@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/compositions")
 @RequiredArgsConstructor
+@Validated
 public class CompositionController {
 
     private final CompositionService compositionService;
@@ -35,13 +37,13 @@ public class CompositionController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CompositionDetailView> getCompositionById(final int id) {
+    public ResponseEntity<CompositionDetailView> getCompositionById(@PathVariable final Integer id) {
         CompositionDto composition = compositionService.findById(id);
         return ResponseEntity.ok(mapper.map(composition, CompositionDetailView.class));
     }
 
     @GetMapping(value = "/{id}/units/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UnitView>> getCompositionUnits(final int id) {
+    public ResponseEntity<List<UnitView>> getCompositionUnits(@PathVariable final Integer id) {
         List<UnitDto> compositionUnits = compositionService.findUnitsByCompositionId(id);
         return ResponseEntity.ok(mapper.map(compositionUnits, UnitView.class));
     }
@@ -55,11 +57,11 @@ public class CompositionController {
     }
 
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> updateComposition(final int id,
+    public ResponseEntity<HttpStatus> updateComposition(@PathVariable final Integer id,
                                                         @RequestBody final UpdateCompositionView updateCompositionView) {
         final UpdateCompositionDto updateCompositionDto = mapper.map(updateCompositionView, UpdateCompositionDto.class);
         final Optional<CompositionDto> compositionDto = compositionService.updateComposition(id, updateCompositionDto);
-        final CompositionView compositionView = mapper.map(compositionDto, CompositionView.class);
+        final CompositionView compositionView = mapper.map(compositionDto.get(), CompositionView.class);
         return new ResponseEntity(compositionView, HttpStatus.OK);
     }
 
@@ -77,7 +79,7 @@ public class CompositionController {
     }*/
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> deleteComposition(final Integer id) {
+    public ResponseEntity<HttpStatus> deleteComposition(@PathVariable final Integer id) {
         compositionService.deleteCompositionById(id);
         return ResponseEntity.ok().build();
     }

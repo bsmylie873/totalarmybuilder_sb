@@ -1,5 +1,4 @@
 package com.coe.totalarmybuilder.controller;
-import com.coe.totalarmybuilder.configuration.MapperConfiguration;
 import com.coe.totalarmybuilder.dto.Account.AccountDto;
 import com.coe.totalarmybuilder.dto.Account.CreateAccountDto;
 import com.coe.totalarmybuilder.dto.Account.UpdateAccountDto;
@@ -66,7 +65,7 @@ public class AccountController {
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> deleteAccount(final Integer id) {
+    public ResponseEntity<HttpStatus> deleteAccount(@PathVariable final Integer id) {
         accountService.deleteAccountById(id);
         return ResponseEntity.ok().build();
     }

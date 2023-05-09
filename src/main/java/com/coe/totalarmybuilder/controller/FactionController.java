@@ -10,7 +10,9 @@ import com.coe.totalarmybuilder.service.FactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/factions")
 @RequiredArgsConstructor
+@Validated
 public class FactionController {
 
     private final FactionService factionService;
@@ -31,13 +34,13 @@ public class FactionController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FactionDetailView> getFactionById(final int id) {
+    public ResponseEntity<FactionDetailView> getFactionById(@PathVariable final Integer id) {
         FactionDto faction = factionService.findById(id);
         return ResponseEntity.ok(mapper.map(faction, FactionDetailView.class));
     }
 
     @GetMapping(value = "/{id}/units/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UnitView>> getFactionUnits(final int id) {
+    public ResponseEntity<List<UnitView>> getFactionUnits(@PathVariable final Integer id) {
         List<UnitDto> factionUnits = factionService.findUnitsByFactionId(id);
         return ResponseEntity.ok(mapper.map(factionUnits, UnitView.class));
     }

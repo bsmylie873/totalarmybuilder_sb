@@ -87,8 +87,6 @@ public class AccountControllerTests {
     @Fixture
     private UpdateAccountView updateAccountViewFixture;
 
-
-
     @Rule
     public FixtureRule fr = FixtureRule.initFixtures();
 
