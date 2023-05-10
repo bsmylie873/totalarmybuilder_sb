@@ -6,7 +6,6 @@ import com.coe.totalarmybuilder.dto.Unit.UnitDto;
 import com.coe.totalarmybuilder.exception.ExceptionHandler;
 import com.coe.totalarmybuilder.mapper.Mapper;
 import com.coe.totalarmybuilder.model.view.account.AccountView;
-import com.coe.totalarmybuilder.model.view.composition.CompositionDetailView;
 import com.coe.totalarmybuilder.model.view.faction.FactionDetailView;
 import com.coe.totalarmybuilder.model.view.faction.FactionView;
 import com.coe.totalarmybuilder.model.view.unit.UnitView;

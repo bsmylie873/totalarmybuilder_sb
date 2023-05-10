@@ -19,7 +19,9 @@ public interface UnitRepository extends JpaRepository<Unit, Integer> {
     @Query( "SELECT F FROM Faction F JOIN UnitFaction UF WHERE UF.unitId = :id AND UF.factionId = F.id")
     List<Faction> findFactionsByUnitId(Integer id);
 
-    /*List<Unit> findLords();
+    @Query ("SELECT U FROM Unit U JOIN LordUnit LU WHERE LU.unit = :id AND LU.unit = U.lordUnit")
+    List<Unit> findLords();
 
-    List<Unit> findHeroes();*/
+    @Query ("SELECT U FROM Unit U JOIN HeroUnit HU WHERE HU.unit = :id AND HU.unit = U.lordUnit")
+    List<Unit> findHeroes();
 }

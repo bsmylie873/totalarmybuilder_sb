@@ -1,10 +1,5 @@
 package com.coe.totalarmybuilder.controllers;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.coe.totalarmybuilder.controller.AccountController;
 import com.coe.totalarmybuilder.dto.Account.AccountDto;
 import com.coe.totalarmybuilder.dto.Account.CreateAccountDto;
@@ -39,6 +34,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 public class AccountControllerTests {

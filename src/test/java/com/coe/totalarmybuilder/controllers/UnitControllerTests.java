@@ -99,4 +99,18 @@ public class UnitControllerTests {
         when(unitServiceMock.findFactionsByUnitId(anyInt())).thenReturn(factionDtoListFixture);
         mockMvc.perform(get("/api/units/1/factions/")).andExpect(status().isOk());
     }
+
+    @Test
+    public void getUnitLords_Returns_List_Of_Lords_And_Ok() throws Exception {
+        when(mapperMock.map(unitDtoListFixture, UnitView.class)).thenReturn(unitViewListFixture);
+        when(unitServiceMock.findLords()).thenReturn(unitDtoListFixture);
+        mockMvc.perform(get("/api/units/lords/")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void getUnitHeroes_Returns_List_Of_Lords_And_Ok() throws Exception {
+        when(mapperMock.map(unitDtoListFixture, UnitView.class)).thenReturn(unitViewListFixture);
+        when(unitServiceMock.findHeroes()).thenReturn(unitDtoListFixture);
+        mockMvc.perform(get("/api/units/heroes/")).andExpect(status().isOk());
+    }
 }

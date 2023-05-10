@@ -25,12 +25,10 @@ public class UnitService {
         return mapper.map(unitRepository.findFactionsByUnitId(id),  FactionDto.class);
     }
 
-
-
-   /* public List<UnitDto> findLords() {
+    public List<UnitDto> findLords() {
         return mapper.map(unitRepository.findLords(), UnitDto.class);
-    };
+    }
     public List<UnitDto> findHeroes() {
         return mapper.map(unitRepository.findHeroes(), UnitDto.class);
-    };*/
+    }
 }

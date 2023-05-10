@@ -1,17 +1,14 @@
 package com.coe.totalarmybuilder.service;
 
-import com.coe.totalarmybuilder.dto.Composition.CompositionDto;
 import com.coe.totalarmybuilder.dto.Faction.FactionDto;
 import com.coe.totalarmybuilder.dto.Unit.UnitDto;
 import com.coe.totalarmybuilder.entity.Faction;
 import com.coe.totalarmybuilder.entity.Unit;
-import com.coe.totalarmybuilder.exception.custom.ResourceNotFoundException;
 import com.coe.totalarmybuilder.mapper.Mapper;
 import com.coe.totalarmybuilder.repository.FactionRepository;
 import com.flextrade.jfixture.FixtureAnnotations;
 import com.flextrade.jfixture.JFixture;
 import com.flextrade.jfixture.annotations.Fixture;
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

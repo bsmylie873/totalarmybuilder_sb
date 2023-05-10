@@ -45,7 +45,7 @@ public class UnitController {
         return ResponseEntity.ok(mapper.map(unitFactions, FactionView.class));
     }
 
-    /*@GetMapping(value = "/lords/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/lords/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UnitView>> getUnitLords() {
         List<UnitDto> unitList = unitService.findLords();
         return ResponseEntity.ok(mapper.map(unitList, UnitView.class));
@@ -55,6 +55,6 @@ public class UnitController {
     public ResponseEntity<List<UnitView>> getUnitHeroes() {
         List<UnitDto> unitList = unitService.findHeroes();
         return ResponseEntity.ok(mapper.map(unitList, UnitView.class));
-    }*/
+    }
 
 }
